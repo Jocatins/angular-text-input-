@@ -1,0 +1,109 @@
+@import '~@angular/cdk/text-field';
+
+$outline-color: rgba(white, .4);
+$outline-color-focused: lighten(#FF1744, 5%);
+
+$fill-color: transparent;
+$fill-color-focused: rgba(white, .4);
+$fill-color-focused-autofilled: lighten(#FF1744, 5%);
+
+$text-color: rgba(white, .9);
+$text-color-autofilled: darken(#0D47A1, 15%);
+
+.box {
+  display: flex;
+  position: relative;
+  border-radius: 10px;
+  padding: 2px;
+  border: 1px solid $outline-color;
+  transition: all ease-in-out .1s;
+  margin-top: calc(1em + 4px);
+}
+
+.inner-box {
+  display: flex;
+  padding: 6px;
+  border-radius: 8px;
+  background: $fill-color;
+}
+
+.inner-box, .input {
+  flex: 1;
+  font: 300 20px Roboto;
+  letter-spacing: 1px;
+  width: 0;
+}
+
+.input {
+  color: $text-color;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
+  @include cdk-text-field-autofill-color(transparent, $text-color);
+}
+
+.label {
+  color: $outline-color;
+  position: absolute;
+  transform-origin: 0 50%;
+  transition: all ease-in-out .1s;
+  pointer-events: none;
+}
+
+.clear {
+  color: $outline-color;
+  background: transparent;
+  border: none;
+  margin: -10px -10px -10px 0;
+  outline: none;
+  cursor: pointer;
+
+  span {
+    border-radius: 50%;
+  }
+}
+
+:host.autofilled {
+  .inner-box {
+    background: $fill-color-focused;
+  }
+
+  .input {
+    @include cdk-text-field-autofill-color(
+        transparent, $text-color-autofilled);
+  }
+
+  .clear {
+    color: $text-color-autofilled;
+  }
+}
+
+:host.cdk-focused {
+  .box {
+    border-color: $outline-color-focused;
+  }
+
+  .label  {
+    color: $outline-color-focused;
+  }
+
+  &.autofilled .inner-box {
+    background: $fill-color-focused-autofilled;
+  }
+}
+
+:host.cdk-focused, :host.filled, :host.autofilled {
+  .label {
+    transform: translateY(-1em) translateY(-12px) scale(.75);
+  }
+}
+
+:host.cdk-keyboard-focused {
+  .clear:focus span {
+    color: $text-color-autofilled;
+    background: $outline-color;
+  }
+}

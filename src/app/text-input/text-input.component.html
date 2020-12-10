@@ -1,0 +1,29 @@
+<div class="box">
+  <div class="inner-box">
+    <label class="label" [for]="id">{{label}}</label>
+    <input *ngIf="!multiline" 
+        class="input"
+        [id]="id"
+        [name]="name"
+        [formControl]="control"
+        (cdkAutofill)="autofillChange($event)"
+        autocomplete="on">
+    <textarea 
+        *ngIf="multiline"
+        cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize" 
+        class="input"
+        [id]="id"
+        [name]="name"
+        [formControl]="control"
+        (cdkAutofill)="autofillChange($event, autosize)"
+        ></textarea>
+    <button 
+        type="button"
+        class="clear material-icons" 
+        (click)="clear()">
+      <span>clear</span>
+    </button>
+  </div>
+  <div class="hint">
+</div>
